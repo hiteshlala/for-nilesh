@@ -131,6 +131,7 @@ function saveFile( p ) {
   mainWindow.webContents.send( 'file-name', fname );
 }
 function openFile( p ) {
+  if ( !p ) return;
   fname = Array.isArray( p ) ? p[0] : p ;
   let d = ( fs.readFileSync( fname, { encoding: 'utf8' } ) ).split( '\n' );
   data.header = d.shift();
