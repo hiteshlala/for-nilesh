@@ -1,0 +1,18 @@
+{
+  "name": "for-nilesh",
+  "version": "1.0.0",
+  "description": "'Nilesh's super simple SCSV editor'",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ./main.js",
+    "package": "electron-packager ."
+  },
+  "author": "Hitesh Lala",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^12.0.2"
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Nilesh's SCSV Editor </title>
+    <style>
+      table, tr, td, th {
+        border: 1px solid black;
+        border-collapse: collapse !important;
+      }
+      td, th {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Nilesh's SCSV Editor </h1>
+    <p> File: <span id="fname"></span></p>
+    <p> Search: <input type="text" oninput="filter(this.value)"> </p>
+    <p> <input type="button" value=" Add New " onclick="openEditor( undefined, undefined )"> </p>
+    <div id="data"></div>
+    <script>
+      require('./index.js')
+    </script>
+  </body>
+</html>
