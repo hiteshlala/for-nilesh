@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title> Nilesh's SCSV Editor </title>
     <style>
       table, tr, td, th {
         border: 1px solid black;
@@ -14,9 +13,9 @@
     </style>
   </head>
   <body>
-    <h1> Nilesh's SCSV Editor </h1>
+    <p> Use File Menu to open a SCSV file.</p>
     <p> File: <span id="fname"></span></p>
-    <p> Search: <input type="text" oninput="filter(this.value)"> </p>
+    <p> Search: <input id="search" type="text" oninput="filter(this.value)"> </p>
     <p> <input type="button" value=" Add New " onclick="openEditor( undefined, undefined )"> </p>
     <div id="data"></div>
     <script>

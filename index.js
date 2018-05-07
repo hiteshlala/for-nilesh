@@ -3,12 +3,14 @@ const remote = require( 'electron' ).remote;
 
 let dataelem = document.getElementById( 'data' );
 let fnameelem = document.getElementById( 'fname' );
+let searchelem = document.getElementById( 'search' );
 
 let data;
 
 ipcRenderer.on( 'new-data', ( e, d ) => { 
   data = d;
   display( d );
+  clearsearch();
 });
 ipcRenderer.on( 'file-name', ( e, name ) => {
   updatefname( name );
@@ -16,6 +18,9 @@ ipcRenderer.on( 'file-name', ( e, name ) => {
 
 function updatefname( name ) {
   fnameelem.innerText = name;
+}
+function clearsearch() {
+  searchelem.value = '';
 }
 
 function display( data ) {
@@ -43,7 +48,7 @@ function openEditor( elem, id ) {
 }
 
 function filter( sel ) {
-  let rg = RegExp( sel );
+  let rg = RegExp( sel, 'i' );
   let selected = {};
   for( const [k, v] of Object.entries( data.rows ) ) {
     if ( rg.test( v ) ) selected[ k ] = v;

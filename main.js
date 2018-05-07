@@ -2,6 +2,7 @@ const path = require( 'path' );
 const url = require( 'url' );
 const fs = require( 'fs' );
 const electron = require( 'electron' );
+const version = require( './package.json' ).version;
 
 const { app, BrowserWindow, Menu, MenuItem, dialog, ipcMain } = electron;
 
@@ -84,7 +85,8 @@ function createWindow () {
     width: 800, 
     height: 600, 
     backgroundColor: '#f5efff',
-    icon: path.join(__dirname, 'npencil.png') 
+    icon: path.join(__dirname, 'npencil.png'),
+    title: `Nilesh's SCSV Editor - ${version}`
   });
   Menu.setApplicationMenu( menu );
   mainWindow.loadURL(url.format({
@@ -100,11 +102,20 @@ function createWindow () {
       fs.writeFileSync( historyPath, JSON.stringify( history), {encoding: 'utf8'} );
     } 
     mainWindow = null
-  })
+  });
+  mainWindow.on('will-navigate', function(event) {
+    event.preventDefault();
+  });
 }
 
 function createEditorWindow ( id ) {
-  editWindow = new BrowserWindow({ width: 400, height: 360, backgroundColor: '#e9ffce', modal: true, parent: mainWindow });
+  editWindow = new BrowserWindow({ 
+    width: 450, 
+    height: 400, 
+    backgroundColor: '#e9ffce', 
+    modal: true, 
+    parent: mainWindow 
+  });
   editWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'editor.html'),
     protocol: 'file:',
@@ -115,7 +126,10 @@ function createEditorWindow ( id ) {
     editWindow = null
     ipcMain.removeListener( 'editor-load', listner );
   });
-
+  editWindow.on('will-navigate', function(event) {
+    event.preventDefault();
+  });
+  editWindow.setMenu( null );
   let listner = (e) => {
     if( id ) e.sender.send( 'data', data.rows[ id ], id );
   };
@@ -123,6 +137,7 @@ function createEditorWindow ( id ) {
 }
 
 function saveFile( p ) {
+  if ( !p ) return;
   fname = Array.isArray( p ) ? p[0] : p ;
   let towrite = data.header + '\n';
   let lines = Object.values( data.rows ).filter( v => v !== '' );
