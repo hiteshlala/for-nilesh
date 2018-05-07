@@ -169,7 +169,10 @@ ipcMain.on( 'data-change', onDataChange );
 ipcMain.on( 'open-editor', ( e, d ) => {
   createEditorWindow( d );
 });
-ipcMain.on( 'close-editor', () => editWindow.close() );
+ipcMain.on( 'close-editor', () => {
+  editWindow.close(); 
+  mainWindow.webContents.send( 'new-data', data );
+});
 ipcMain.on( 'save-record', ( e, d, id ) => { 
   saveRecord( d, id );
   editWindow.close();
