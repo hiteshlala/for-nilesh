@@ -152,7 +152,7 @@ function openFile( p ) {
   let d = ( fs.readFileSync( fname, { encoding: 'utf8' } ) ).split( '\n' );
   data.header = d.shift();
   data.rows = {};
-  d.forEach( ( row, idx ) => data.rows[ idx ] = row );
+  d.forEach( ( row, idx ) => data.rows[ idx + 1 ] = row );
   mainWindow.webContents.send( 'new-data', data );
   mainWindow.webContents.send( 'file-name', fname );
 }
