@@ -131,7 +131,8 @@ function createEditorWindow ( id ) {
   });
   editWindow.setMenu( null );
   let listner = (e) => {
-    if( id ) e.sender.send( 'data', data.rows[ id ], id );
+    if( id ) e.sender.send( 'data', data.rows[ id ], id, data.header );
+    else e.sender.send( 'data', undefined, undefined, data.header );
   };
   ipcMain.on( 'editor-load', listner );
 }

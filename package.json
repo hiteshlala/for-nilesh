@@ -1,6 +1,6 @@
 {
   "name": "for-nilesh",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "'Nilesh's super simple SCSV editor'",
   "main": "main.js",
   "scripts": {

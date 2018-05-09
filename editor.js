@@ -2,11 +2,19 @@ const ipcRenderer = require( 'electron' ).ipcRenderer;
 
 window.addEventListener( 'load', ()=>ipcRenderer.send( 'editor-load') );
 
-ipcRenderer.on( 'data', ( e, d, id ) => { 
-  editingdata = d.split(';');
-  selectrecord = id;
+ipcRenderer.on( 'data', ( e, d, id, headers ) => {
+  headings = headers.split(';');
+  if ( d ) { 
+    editingdata = d.split(';');
+    selectrecord = id;
+  }
+  else {
+    headings.forEach( h => editingdata.push('') );
+  }
   populateEdit();
 });
+
+let form = document.getElementById( 'form' );
 
 let short = document.getElementById( 'short' );
 let first = document.getElementById( 'first' );
@@ -14,15 +22,16 @@ let last = document.getElementById( 'last' );
 let email = document.getElementById( 'email' );
 let company = document.getElementById( 'company' );
 
-let editingdata = [ '', '', '', '', '' ];
+let headings = [];
+let editingdata = [];
 let selectrecord = undefined;
 
 function populateEdit() {
-  short.value = editingdata[ 0 ]; 
-  first.value = editingdata[ 1 ]; 
-  last.value = editingdata[ 2 ];
-  email.value = editingdata[ 3 ];
-  company.value = editingdata[ 4 ];
+  let questions = '';
+  headings.forEach( ( h, i ) => {
+    questions += `<p>${h}: <input type="text" value="${editingdata[i]}" id="id-${h}" oninput="updatethis( this, ${i} )"></p>`;
+  });
+  form.innerHTML = questions;
 }
 function updatethis( elem, id ) {
   editingdata[ id ] = elem.value;
