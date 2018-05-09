@@ -10,9 +10,9 @@
   "author": "Hitesh Lala",
   "license": "ISC",
   "dependencies": {
-    "electron": "^2.0.0"
   },
   "devDependencies": {
+    "electron": "^2.0.0",
     "electron-packager": "^12.0.2"
   }
 }
